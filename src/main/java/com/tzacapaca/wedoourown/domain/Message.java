@@ -2,6 +2,10 @@ package com.tzacapaca.wedoourown.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Entity for messages.
+ * @author selascu
+ */
 @Document(collection = "messages")
 public class Message {
     @Id
@@ -10,6 +14,8 @@ public class Message {
     private String body;
 
     private String date;
+    
+    private String username;
 
 	public String getId() {
 		return id;
@@ -33,6 +39,14 @@ public class Message {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

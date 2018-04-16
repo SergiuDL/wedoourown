@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
+/**
+ * Controller for messages.
+ * @author selascu
+ */
 @RequestMapping("/messages")
 @RestController
 public class MessageController {
