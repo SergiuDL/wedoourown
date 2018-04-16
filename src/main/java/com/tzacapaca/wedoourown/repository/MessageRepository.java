@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * @author selascu
  */
 @Repository
-public interface MessageRepository extends ReactiveMongoRepository<Message, String> {
+public interface MessageRepository extends ReactiveMongoRepository<Message, String>, MessageRepositoryCustom {
 }
