@@ -33,14 +33,18 @@ public class MessageController {
     
     @RequestMapping(method = RequestMethod.POST, value="/message")
     Mono<Message> saveMessage(Message message){
-    	return messageRepository.save(message);
+    	return messageRepository.insert(message);
     }
     
-//    @RequestMapping(method = RequestMethod.PUT, value="/message")
-//    Mono<Message> editMessage(Message message){
-//    	
-//    	
-//    }
+    @RequestMapping(method = RequestMethod.PUT, value="/message")
+    Mono<Message> editMessage(Message message){
+    	Message latestMessageForUser = findLatest(message.getUsername());
+    	latestMessageForUser.setBody(message.getBody());
+    	latestMessageForUser.setDate(message.getDate());
+    	return messageRepository.save(latestMessageForUser);
+    }
+    
+
 
     @RequestMapping(method = RequestMethod.GET, value = "/latest/{userName}")
     Message findLatest(@PathVariable String userName){
