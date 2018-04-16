@@ -18,6 +18,11 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
 import com.mongodb.MongoClient;
 
+/**
+ * Custom mongo configuration for mongo template queries.
+ * 
+ * @author selascu
+ */
 @Configuration
 @PropertySource("application.properties")
 public class MongoConfig {

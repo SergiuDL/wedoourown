@@ -13,14 +13,20 @@ import org.springframework.stereotype.Repository;
 import com.tzacapaca.wedoourown.config.MongoConfig;
 import com.tzacapaca.wedoourown.domain.Message;
 
-import reactor.core.publisher.Flux;
-
+/**
+ * Custom repo implementation for {@link Message}s.
+ * @author selascu
+ *
+ */
 @Repository
 public class MessageRepositoryImpl implements MessageRepositoryCustom {
 	
 	ApplicationContext ctx = new AnnotationConfigApplicationContext(MongoConfig.class);
     MongoOperations mongoOperation = (MongoOperations)ctx.getBean("mongoTemplate");
     
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public Message findLatestPostByUser(String userName) {
 		Query query = new Query();

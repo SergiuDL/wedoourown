@@ -7,11 +7,16 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 
 /**
- * Reactive mongo repository for messages.
+ * Reactive mongo repository for {@link Message}s.
  * @author selascu
  */
 @Repository
 public interface MessageRepository extends ReactiveMongoRepository<Message, String>, MessageRepositoryCustom {
 
+	/**
+	 * Finds all {@link Message}s for the given user.
+	 * @param username - the username.
+	 * @return a {@link Flux} of all the {@link Message}s for the user.
+	 */
     Flux<Message> findAllByUsername(String username);
 }
