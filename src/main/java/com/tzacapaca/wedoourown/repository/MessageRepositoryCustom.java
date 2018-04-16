@@ -3,6 +3,7 @@ package com.tzacapaca.wedoourown.repository;
 import org.springframework.stereotype.Repository;
 
 import com.tzacapaca.wedoourown.domain.Message;
+import reactor.core.publisher.Flux;
 
 @Repository
 public interface MessageRepositoryCustom {

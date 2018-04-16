@@ -34,7 +34,6 @@ public class MongoConfig {
 	public MongoTemplate mongoTemplate() throws Exception {
 		MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory());
 		return mongoTemplate;
-
 	}
 
 }

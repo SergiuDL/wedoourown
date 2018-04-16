@@ -29,7 +29,5 @@ public class MessageRepositoryImpl implements MessageRepositoryCustom {
 		List<Message> messagesForUser = mongoOperation.find(query, Message.class);
 		return messagesForUser.get(0);
 	}
-    
-    
 
 }
