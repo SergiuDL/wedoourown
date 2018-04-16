@@ -42,9 +42,9 @@ public class MessageController {
      * @param message - the {@link Message} to save.
      * @return the saved {@link Message}.
      */
-    @RequestMapping(method = RequestMethod.POST, value="/message")
-    Mono<Message> saveMessage(Message message){
-    	return messageRepository.insert(message);
+    @RequestMapping(method = RequestMethod.POST, value="/message", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    Mono<Message> saveMessage(@RequestBody  Message message){
+    	return messageService.save(message);
     }
     
     /**
