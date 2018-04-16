@@ -4,7 +4,9 @@ import com.tzacapaca.wedoourown.domain.Message;
 import com.tzacapaca.wedoourown.repository.MessageRepository;
 import com.tzacapaca.wedoourown.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,11 +55,19 @@ public class MessageController {
      * @return the edited {@link Message}.
      */
     @RequestMapping(method = RequestMethod.PUT, value="/message", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    Mono<Message> editMessage(@RequestBody Message message){
+    ResponseEntity<Message> editMessage(@RequestBody Message message){
     	Message latestMessageForUser = findLatest(message.getUsername());
-    	latestMessageForUser.setBody(message.getBody());
-    	latestMessageForUser.setDate(message.getDate());
-    	return messageRepository.save(latestMessageForUser);
+    	
+    	if(latestMessageForUser != null){
+    		latestMessageForUser.setBody(message.getBody());
+        	latestMessageForUser.setDate(message.getDate());
+        	ResponseEntity<Message> responseEntity = new ResponseEntity<Message>(messageRepository.save(latestMessageForUser).block(),HttpStatus.ACCEPTED);
+        	return responseEntity;
+    	}
+    	else {
+    		return new ResponseEntity<Message>(HttpStatus.NOT_FOUND);
+    	}
+    	
     } 
 
 
@@ -76,8 +86,8 @@ public class MessageController {
      * @param userName - the user name.
      */
     @RequestMapping(method = RequestMethod.DELETE, value = "/remove/{userName}", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    void removeLastMessage(@PathVariable String userName) {
-        messageService.removeLastMessage(userName);
+    Mono<Void> removeLastMessage(@PathVariable String userName) {
+       return messageService.removeLastMessage(userName);
     }
 
     /**
